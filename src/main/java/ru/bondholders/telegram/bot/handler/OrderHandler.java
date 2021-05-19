@@ -1,14 +1,14 @@
 package ru.bondholders.telegram.bot.handler;
 
-import ru.bondholders.telegram.bot.State;
-import ru.bondholders.telegram.model.User;
-import ru.bondholders.telegram.repository.JpaUserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import ru.bondholders.telegram.bot.State;
+import ru.bondholders.telegram.model.User;
+import ru.bondholders.telegram.repository.JpaUserRepository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -33,7 +33,6 @@ public class OrderHandler implements Handler {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(User user, String message) {
-        // Welcoming user
 
         SendMessage welcomeMessage = createMessageTemplate(user)
                         .setText(String.format(

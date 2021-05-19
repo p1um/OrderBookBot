@@ -1,0 +1,13 @@
+bot:
+  name: GBOrderBookBot
+  token: 1746726860:AAGWME9GaColvEfa3ZaiHEZMgj66RKh-2nM
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-34-242-89-204.eu-west-1.compute.amazonaws.com:5432/dfla8nadm3dolg?user=mtfpssvljfgqhw&password=9248a8164fb1b7a69fb8190e3832d24936ef4845b58e740ccd64e08b159a36e4
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: never
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update

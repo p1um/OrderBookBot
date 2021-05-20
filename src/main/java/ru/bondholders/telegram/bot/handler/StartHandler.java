@@ -1,14 +1,14 @@
 package ru.bondholders.telegram.bot.handler;
 
-import ru.bondholders.telegram.bot.State;
-import ru.bondholders.telegram.model.User;
-import ru.bondholders.telegram.repository.JpaUserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import ru.bondholders.telegram.bot.State;
+import ru.bondholders.telegram.model.User;
+import ru.bondholders.telegram.repository.JpaUserRepository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -45,7 +45,7 @@ public class StartHandler implements Handler {
 
         //Текст и переход на следующее состояние
         List<InlineKeyboardButton> inlineKeyboardButtonsRowOne = List.of(
-                createInlineKeyboardButton("Принять", OrderHandler.ORDER));
+                createInlineKeyboardButton("Принять", OrderHandler.FIND_BOOK_ORDER));
 
         inlineKeyboardMarkup.setKeyboard(List.of(inlineKeyboardButtonsRowOne));
 

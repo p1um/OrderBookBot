@@ -1,13 +1,12 @@
 package ru.bondholders.telegram.bot.handler;
 
-import ru.bondholders.telegram.bot.State;
-import ru.bondholders.telegram.model.User;
-import ru.bondholders.telegram.repository.JpaUserRepository;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import ru.bondholders.telegram.bot.State;
+import ru.bondholders.telegram.model.User;
+import ru.bondholders.telegram.repository.JpaUserRepository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +15,7 @@ import static ru.bondholders.telegram.bot.handler.QuizHandler.QUIZ_START;
 import static ru.bondholders.telegram.util.TelegramUtil.createInlineKeyboardButton;
 import static ru.bondholders.telegram.util.TelegramUtil.createMessageTemplate;
 
-@Component
+
 public class RegistrationHandler implements Handler {
     // Supported CallBackQueries are stored as constants
     public static final String NAME_ACCEPT = "/enter_name_accept";

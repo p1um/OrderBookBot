@@ -13,14 +13,16 @@ import ru.bondholders.telegram.repository.JpaUserRepository;
 import java.io.Serializable;
 import java.util.List;
 
-import static ru.bondholders.telegram.bot.handler.QuizHandler.FILL_ORDER;
+import static ru.bondholders.telegram.bot.handler.FillOrderFioHandler.FILL_ORDER_FIO;
 import static ru.bondholders.telegram.util.TelegramUtil.createInlineKeyboardButton;
 import static ru.bondholders.telegram.util.TelegramUtil.createMessageTemplate;
 
 @Component
 public class OrderHandler implements Handler {
 
-    public static final String ORDER = "/order";
+    //TODO подключить бд orderbook реализовать выбор и да/нет
+
+    public static final String FIND_BOOK_ORDER = "/find_bookOrder";
 
     @Value("${bot.name}")
     private String botUsername;
@@ -43,11 +45,11 @@ public class OrderHandler implements Handler {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
         List<InlineKeyboardButton> inlineKeyboardButtonsRowOne = List.of(
-                createInlineKeyboardButton("Принять", FILL_ORDER));
+                createInlineKeyboardButton("Принять", FILL_ORDER_FIO));
 
         inlineKeyboardMarkup.setKeyboard(List.of(inlineKeyboardButtonsRowOne));
 
-        user.setBotState(State.ORDER_REGISTRATION);
+        user.setBotState(State.FILL_ORDER_FIO);
         userRepository.save(user);
 
         return List.of(welcomeMessage, createMessageTemplate(user)
@@ -57,11 +59,11 @@ public class OrderHandler implements Handler {
 
     @Override
     public State operatedBotState() {
-        return State.ORDER;
+        return State.FIND_BOOK_ORDER;
     }
 
     @Override
     public List<String> operatedCallBackQuery() {
-        return List.of(ORDER);
+        return List.of(FIND_BOOK_ORDER);
     }
 }

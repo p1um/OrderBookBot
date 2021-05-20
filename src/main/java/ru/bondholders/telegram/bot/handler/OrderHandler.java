@@ -1,26 +1,28 @@
 package ru.bondholders.telegram.bot.handler;
 
-import ru.bondholders.telegram.bot.State;
-import ru.bondholders.telegram.model.User;
-import ru.bondholders.telegram.repository.JpaUserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import ru.bondholders.telegram.bot.State;
+import ru.bondholders.telegram.model.User;
+import ru.bondholders.telegram.repository.JpaUserRepository;
 
 import java.io.Serializable;
 import java.util.List;
 
-import static ru.bondholders.telegram.bot.handler.QuizHandler.FILL_ORDER;
+import static ru.bondholders.telegram.bot.handler.FillOrderFioHandler.FILL_ORDER_FIO;
 import static ru.bondholders.telegram.util.TelegramUtil.createInlineKeyboardButton;
 import static ru.bondholders.telegram.util.TelegramUtil.createMessageTemplate;
 
 @Component
 public class OrderHandler implements Handler {
 
-    public static final String ORDER = "/order";
+    //TODO подключить бд orderbook реализовать выбор и да/нет
+
+    public static final String FIND_BOOK_ORDER = "/find_bookOrder";
 
     @Value("${bot.name}")
     private String botUsername;
@@ -33,7 +35,6 @@ public class OrderHandler implements Handler {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(User user, String message) {
-        // Welcoming user
 
         SendMessage welcomeMessage = createMessageTemplate(user)
                         .setText(String.format(
@@ -44,11 +45,11 @@ public class OrderHandler implements Handler {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
         List<InlineKeyboardButton> inlineKeyboardButtonsRowOne = List.of(
-                createInlineKeyboardButton("Принять", FILL_ORDER));
+                createInlineKeyboardButton("Принять", FILL_ORDER_FIO));
 
         inlineKeyboardMarkup.setKeyboard(List.of(inlineKeyboardButtonsRowOne));
 
-        user.setBotState(State.ORDER_REGISTRATION);
+        user.setBotState(State.FILL_ORDER_FIO);
         userRepository.save(user);
 
         return List.of(welcomeMessage, createMessageTemplate(user)
@@ -58,11 +59,11 @@ public class OrderHandler implements Handler {
 
     @Override
     public State operatedBotState() {
-        return State.ORDER;
+        return State.FIND_BOOK_ORDER;
     }
 
     @Override
     public List<String> operatedCallBackQuery() {
-        return List.of(ORDER);
+        return List.of(FIND_BOOK_ORDER);
     }
 }
